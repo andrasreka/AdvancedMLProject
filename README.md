@@ -1,0 +1,1 @@
+conda create --name irony --file spec-list.txt
