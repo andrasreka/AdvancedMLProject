@@ -33,46 +33,52 @@ eval_df = eval_df[['text', 'labels']]
 # eval_df = pd.DataFrame(eval_data)
 # eval_df.columns = ["text", "labels"]
 
+train_df = train_df.head(1000)
+eval_df = eval_df.head(1000)
 
 # Optional model configuration
-model_args = {
-    'data_dir': 'data/',
-    'model_type':  'distilroberta',
-    'model_name': 'distilroberta-base',
-    'output_dir': 'outputs2/',
-    'cache_dir': 'cache/',
-    'do_train': True,
-    'do_eval': True,
-    'fp16': False,
-    'fp16_opt_level': 'O1',
-    'max_seq_length': 128,
-    'output_mode': 'classification',
-    'train_batch_size': 12,
-    'eval_batch_size': 12,
+# model_args = {
+#     'data_dir': 'data/',
+#     'model_type':  'distilroberta',
+#     'model_name': 'distilroberta-base',
+#     'output_dir': 'outputs2/',
+#     'cache_dir': 'cache/',
+#     'do_train': True,
+#     'do_eval': True,
+#     'fp16': False,
+#     'fp16_opt_level': 'O1',
+#     'max_seq_length': 128,
+#     'output_mode': 'classification',
+#     'train_batch_size': 12,
+#     'eval_batch_size': 12,
 
-    'gradient_accumulation_steps': 1,
-    'num_train_epochs': 1,
-    'weight_decay': 0,
-    'learning_rate': 4e-5,
-    'adam_epsilon': 1e-8,
-    'warmup_ratio': 0.06,
-    'warmup_steps': 0,
-    'max_grad_norm': 1.0,
+#     'gradient_accumulation_steps': 1,
+#     'num_train_epochs': 1,
+#     'weight_decay': 0,
+#     'learning_rate': 4e-5,
+#     'adam_epsilon': 1e-8,
+#     'warmup_ratio': 0.06,
+#     'warmup_steps': 0,
+#     'max_grad_norm': 1.0,
 
-    'logging_steps': 50,
-    'evaluate_during_training': False,
-    'save_steps': 2000,
-    'eval_all_checkpoints': True,
+#     'logging_steps': 50,
+#     'evaluate_during_training': False,
+#     'save_steps': 2000,
+#     'eval_all_checkpoints': True,
 
-    'overwrite_output_dir': False,
-    'reprocess_input_data': True,
-    'notes': 'Using twitter dataset'
-}
+#     'overwrite_output_dir': False,
+#     'reprocess_input_data': True,
+#     'notes': 'Using twitter dataset'
+# }
+
+
+# Optional model configuration
+model_args = ClassificationArgs()
+model_args.num_train_epochs=1
+# model_args.lazy_loading = True
 
 # Create a ClassificationModel
-model = ClassificationModel(
-    "roberta", "roberta-base", args=model_args, use_cuda=False
-)
+model = ClassificationModel( "roberta", "roberta-base",  num_labels=2, use_cuda=False, args=model_args)
 
 # Train the model
 model.train_model(train_df, show_running_loss=True)
