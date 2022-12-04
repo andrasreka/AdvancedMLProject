@@ -1,5 +1,5 @@
 from simpletransformers.classification import ClassificationModel
-import sklearn
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
 import pandas as pd
 
 model = ClassificationModel(
@@ -8,5 +8,12 @@ model = ClassificationModel(
 )
 
 eval_df = pd.read_csv('data/val_MUSTARD.csv')
-result, model_outputs, wrong_predictions = model.eval_model(eval_df, acc=sklearn.metrics.accuracy_score)
+result, model_outputs, wrong_predictions = model.eval_model(
+    eval_df, 
+    acc = accuracy_score,
+    f1 = f1_score,
+    recall = recall_score,
+    precision = precision_score 
+    )
+
 print(result)
