@@ -17,18 +17,19 @@ transformers_logger.setLevel(logging.WARNING)
 # val_df.columns = ['labels', 'text']
 # val_df = val_df[['text', 'labels']]
 
-train_df = pd.read_csv('data/train_MUSTARD.csv')  
-val_df = pd.read_csv('data/val_MUSTARD.csv')
+train_df = pd.read_csv('data/reddit_train.csv')  
+val_df = pd.read_csv('data/reddit_val.csv')
 
 model_args = {
     'data_dir': 'data/',
-    'output_dir': 'outputs/',
+    'output_dir': 'outputs_reddit_based_on_twitter/',
     'cache_dir': 'cache/',
     'do_train': True,
     'do_eval': True,
     'fp16': False,
     'fp16_opt_level': 'O1',
-    'max_seq_length': 512,
+    # 'max_seq_length': 512,
+    'sliding_window' : True,
     'output_mode': 'classification',
     'train_batch_size': 12,
     'eval_batch_size': 12,
@@ -49,6 +50,7 @@ model_args = {
     'overwrite_output_dir': False,
     'reprocess_input_data': True,
 }
+
 
 
 train_df = train_df.head(5)
