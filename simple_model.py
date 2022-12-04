@@ -1,8 +1,22 @@
 from simpletransformers.classification import ClassificationModel, ClassificationArgs
 import pandas as pd
-
+import logging
 
 prefix = 'data/'
+logging.basicConfig(level=logging.INFO)
+transformers_logger = logging.getLogger("transformers")
+transformers_logger.setLevel(logging.WARNING)
+
+# train_df = pd.read_csv(prefix + 'train.txt', sep='\t', header=None) 
+# train_df = train_df[train_df.columns[1:3]]
+# train_df.columns = ['labels', 'text']
+# train_df = train_df[['text', 'labels']]
+
+# val_df = pd.read_csv(prefix + 'test.txt', sep='\t', header=None)
+# val_df = val_df[val_df.columns[1:3]]
+# val_df.columns = ['labels', 'text']
+# val_df = val_df[['text', 'labels']]
+
 train_df = pd.read_csv('data/train_MUSTARD.csv')  
 val_df = pd.read_csv('data/val_MUSTARD.csv')
 
@@ -37,7 +51,8 @@ model_args = {
 }
 
 
-
+train_df = train_df.head(5)
+val_df = val_df.head(5)
 # Create a ClassificationModel
 model = ClassificationModel(
     "roberta", "cardiffnlp/twitter-roberta-base-irony", args=model_args, use_cuda=False
