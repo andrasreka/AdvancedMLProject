@@ -23,8 +23,8 @@ __pycache__
 *.zip
 *.pickle
 
-data
+models
+runs
 outputs
-
-args.json
-
+cache
+cache_dir
