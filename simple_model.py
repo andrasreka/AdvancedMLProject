@@ -24,7 +24,7 @@ val_df = pd.read_csv('data/reddit_val.csv')
 
 model_args = {
     'data_dir': 'data/',
-    'output_dir': 'outputs_reddit_based_on_twitter/',
+    'output_dir': 'sarcasm/',
     'cache_dir': 'cache/',
     'do_train': True,
     'do_eval': True,
