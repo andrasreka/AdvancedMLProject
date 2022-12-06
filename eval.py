@@ -31,12 +31,12 @@ class NumpyEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 model = ClassificationModel(
-    "roberta", "models/robertatwitter_mustard",
+    "roberta", "cardiffnlp/twitter-roberta-base-irony",    
     use_cuda=False
 
 )
 
-eval_df = pd.read_csv('data/val_MUSTARD.csv')
+eval_df = pd.read_csv('data/reddit_val.csv')
 result, model_outputs, wrong_predictions = model.eval_model(
     eval_df, 
     acc = accuracy_score,
@@ -46,7 +46,8 @@ result, model_outputs, wrong_predictions = model.eval_model(
     )
 
 
-with open("models/robertatwitter_mustard/eval.json", 'w') as file:
+print(result)
+with open("eval.json", 'w') as file:
     json.dump(result, file, indent=4, sort_keys=True,
               separators=(', ', ': '), ensure_ascii=False,
               cls=NumpyEncoder)
