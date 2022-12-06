@@ -19,6 +19,8 @@ transformers_logger.setLevel(logging.WARNING)
 
 train_df = pd.read_csv('data/reddit_train.csv')  
 val_df = pd.read_csv('data/reddit_val.csv')
+# train_df = pd.read_csv('data/train_MUSTARD.csv')  
+# val_df = pd.read_csv('data/val_MUSTARD.csv')
 
 model_args = {
     'data_dir': 'data/',
@@ -53,8 +55,8 @@ model_args = {
 
 
 
-train_df = train_df.head(5)
-val_df = val_df.head(5)
+# train_df = train_df.head(5)
+# val_df = val_df.head(5)
 # Create a ClassificationModel
 model = ClassificationModel(
     "roberta", "cardiffnlp/twitter-roberta-base-irony", args=model_args, use_cuda=False
